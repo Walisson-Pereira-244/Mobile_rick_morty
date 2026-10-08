@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
 
 * [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
@@ -55,3 +56,6 @@ shared/src
 ├── iosMain      → engine Darwin  + actual do BackHandler
 └── jvmMain      → engine CIO     + actual do BackHandler
 ```
+=======
+# Mobile_rick_morty
+>>>>>>> 303303ca36941b7669d981f8596c224b48b922fe
