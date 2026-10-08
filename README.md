@@ -1,61 +1,41 @@
-<<<<<<< HEAD
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
+Rick and Morty - Kotlin Multiplatform
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Projeto que fiz para um workshop sobre Kotlin Multiplatform. É um app que lista os personagens da série usando a API https://rickandmortyapi.com, com busca, tela de detalhes e uma tela de perfil. O mesmo código roda no Android e no Desktop (o iOS também está no projeto, mas só compila em Mac).
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
-    folder is the appropriate location.
+O que tem no app
+Lista de personagens com campo de busca
+Tela de detalhes ao clicar em um personagem
+Tela de perfil com avatar, botões, cards e switches (o switch de tema escuro funciona de verdade)
+Tela de carregando e de erro, com botão para tentar de novo
+Tecnologias
+Kotlin Multiplatform e Compose Multiplatform
+Ktor para chamar a API
+kotlinx.serialization para converter o JSON
+Coil para carregar as imagens
+ViewModel com StateFlow (arquitetura MVVM)
+Como o código está organizado
 
-### Running the apps
+Quase tudo fica na pasta shared/src/commonMain, que é o código compartilhado:
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+data: modelo, chamada da API e repositório
+presentation: ViewModel e os estados da tela (carregando, sucesso, erro)
+ui: telas, componentes e tema
+di: monta as dependências
 
-- Android app: `./gradlew :androidApp:assembleDebug`
-- Desktop app:
-  - Hot reload: `./gradlew :desktopApp:hotRun --auto`
-  - Standard run: `./gradlew :desktopApp:run`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+As pastas androidMain, iosMain e jvmMain têm só o que muda em cada plataforma, como o motor de rede.
 
-### Running tests
+Como rodar
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
+Precisa do JDK 21 e do Android Studio.
 
-- Android tests: `./gradlew :shared:testAndroidHostTest`
-- Desktop tests: `./gradlew :shared:jvmTest`
-- iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
+Abra no Android Studio a pasta que tem o arquivo settings.gradle.kts e espere o Gradle sincronizar. Na primeira vez demora.
+Android: escolha androidApp, selecione um emulador e clique em Run.
+Desktop: rode no terminal ./gradlew :desktopApp:run (no Windows: gradlew.bat :desktopApp:run).
+iOS: só em Mac, abrindo a pasta iosApp no Xcode.
+Sem internet
 
----
+Se estiver sem internet, dá para usar dados de exemplo. No arquivo AppContainer.kt, mude useFakeApi para true. As imagens não carregam nesse modo.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Créditos
 
----
-
-## Demo do Workshop (Rick and Morty)
-
-App de 3 telas (Lista → Detalhes, Perfil) com Ktor + kotlinx.serialization + ViewModel/StateFlow + Compose Multiplatform.
-Roteiro completo da apresentação: [ROTEIRO_WORKSHOP.md](./ROTEIRO_WORKSHOP.md).
-
-```
-shared/src
-├── commonMain/kotlin/org/example/project
-│   ├── App.kt                       # raiz + navegação (abas + detalhes)
-│   ├── data/model/Character.kt      # @Serializable
-│   ├── data/remote/                 # HttpClientFactory, CharacterApi (Ktor), FakeCharacterApi
-│   ├── data/repository/             # CharacterRepository
-│   ├── presentation/                # UiState, CharactersViewModel
-│   ├── di/AppContainer.kt           # DI manual (useFakeApi = plano B offline)
-│   └── ui/                          # theme, components, screens, PlatformBackHandler (expect)
-├── androidMain  → engine OkHttp + actual do BackHandler
-├── iosMain      → engine Darwin  + actual do BackHandler
-└── jvmMain      → engine CIO     + actual do BackHandler
-```
-=======
-# Mobile_rick_morty
->>>>>>> 303303ca36941b7669d981f8596c224b48b922fe
+Dados da Rick and Morty API. O projeto começou do template oficial do Kotlin Multiplatform.
